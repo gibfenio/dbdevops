@@ -5,6 +5,13 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
 
+    <!-- ChangeSet 1: Create payroll database -->
+    <changeSet id="1" author="test">
+        <sql>
+            CREATE DATABASE payroll;
+        </sql>
+    </changeSet>
+
     <!-- ChangeSet 2: Create employees table inside payroll -->
     <changeSet id="2" author="test">
         <createTable catalogName="payroll" tableName="employees">
