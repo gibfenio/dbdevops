@@ -15,6 +15,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="department" type="VARCHAR(50)"/>
+            <column name="project" type="VARCHAR(50)"/>
         </createTable>
     </changeSet>
 
