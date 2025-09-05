@@ -1,0 +1,67 @@
+pipeline:
+  projectIdentifier: t3
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          pwd
+                          uname -a
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+            rollbackSteps: []
+          serviceDependencies: []
+        tags: {}
+    - stage:
+        name: s2
+        identifier: s2
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - stepGroup:
+                  name: sg2
+                  identifier: sg2
+                  steps:
+                    - step:
+                        type: LiquibaseCommand
+                        name: LiquibaseCommand_1
+                        identifier: LiquibaseCommand_1
+                        spec:
+                          connectorRef: account.harnessImage
+                          command: update
+                          dbSchema: <+matrix.schema>
+                          dbInstance: <+matrix.instance>
+                        timeout: 10m
+                  stepGroupInfra:
+                    type: KubernetesDirect
+                    spec:
+                      connectorRef: t3k8sconn
+                  strategy:
+                    matrix:
+                      schema: <+input>
+                      instance: <+input>
+            rollbackSteps: []
+          serviceDependencies: []
+        tags: {}
+  identifier: prodpipelinev1
+  name: prodpipelinev1
