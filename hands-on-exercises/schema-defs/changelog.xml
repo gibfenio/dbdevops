@@ -15,8 +15,14 @@
                 <constraints nullable="false"/>
             </column>
             <column name="department" type="VARCHAR(50)"/>
-            <column name="project" type="VARCHAR(50)"/>
         </createTable>
     </changeSet>
 
+    <!-- ChangeSet 3: Add 'project' column -->
+    <changeSet id="3" author="test">
+        <addColumn catalogName="payroll" tableName="employees">
+            <column name="project" type="VARCHAR(50)"/>
+        </addColumn>
+    </changeSet>
+    
 </databaseChangeLog>
